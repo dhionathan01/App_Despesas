@@ -7,6 +7,14 @@ class Despesa {
         this.descricao = descricao
         this.valor = valor
     }
+    validarDados() {
+        for (let i in this) {
+            if (this[i] == undefined || this[i] == '' || this[i] == null) { //this[i] Explicação detalhada: Aula 281 '06:00' minutos
+                return false
+            } 
+        }
+        return true
+    }
 }
 
 // Classe BD (banco de dados), feita para persistir os dados no local storange
@@ -49,6 +57,14 @@ function cadastrarDespesa() {
         descricao.value,
         valor.value
     )
+    if (despesa.validarDados()) {
+        //bd.gravarDados(despesa)
+        // dialog de sucesso
+        console.log('Dados válidos')
+    } else {
+        // dialog de erro
+        console.log('Dados inválidos')
+    }
 
-    bd.gravarDados(despesa)
+   
 }
