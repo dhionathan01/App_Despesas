@@ -12,19 +12,21 @@ class Despesa {
 // Classe BD (banco de dados), feita para persistir os dados no local storange
 class Bd {
     constructor() {
+        // Verificando se existe um id, caso não criar o índice 0
         let id = localStorage.getItem('id')
         if (id === null) {
             localStorage.setItem('id', 0)
         }
     }
     getProximoId() {
+        // Gera o id seguinte ao existente para persistir os dados
         let proximoId = localStorage.getItem('id') 
-        return(parseInt(proximoId) + 1)
+        return(parseInt(proximoId) + 1) // retorna o valor que será dado ao id
     }
     gravarDados(dados) {
         //localStorage.setItem('despesa', JSON.stringify(dados)) //JSON.stringify converte um objeto literal em notação JSON
-        let id = this.getProximoId()
-        localStorage.setItem(id, JSON.stringify(dados))
+        let id = this.getProximoId() // Pega o id disponível para inserção dos dados
+        localStorage.setItem(id, JSON.stringify(dados)) // Setando dados no localstorange
         localStorage.setItem('id', id)
     }
 }
