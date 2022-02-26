@@ -1,0 +1,1 @@
+alert('Verificando inclusão do arquivo JS')
