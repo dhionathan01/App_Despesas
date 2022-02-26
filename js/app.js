@@ -9,6 +9,15 @@ class Despesa {
     }
 }
 
+// Classe BD (banco de dados), feita para persistir os dados no local storange
+class Bd {
+    gravarDados(dados) {
+        localStorage.setItem('despesa', JSON.stringify(dados)) //JSON.stringify converte um objeto literal em notação JSON
+    }
+}
+
+let bd = new Bd()
+
 function cadastrarDespesa() {
     let ano = document.getElementById('ano')
     let mes = document.getElementById('mes')
@@ -26,9 +35,5 @@ function cadastrarDespesa() {
         valor.value
     )
 
-    gravarDados(despesa)
-}
-
-function gravarDados(dados) {
-    localStorage.setItem('despesa', JSON.stringify(dados)) //JSON.stringify converte um objeto literal em notação JSON
+    bd.gravarDados(despesa)
 }
