@@ -41,6 +41,23 @@ class Bd {
 
 let bd = new Bd()
 
+function configurarModal(validacao) {
+    if (validacao == 'sucess') {
+        document.getElementById('header_color').className = 'modal-header text-success'
+        document.getElementById('btn_color').className = 'btn btn-success'
+        document.getElementById('exampleModalLabel').innerHTML = 'Registro inserido com sucesso'
+        document.getElementById('mensagem_modal').innerHTML = 'Despesa foi cadastrada com sucesso'
+        document.getElementById('btn_color').innerHTML = 'Voltar'
+    } else if (validacao == 'falha') {
+        document.getElementById('header_color').className = 'modal-header text-danger'
+        document.getElementById('btn_color').className = 'btn btn-danger'
+        document.getElementById('exampleModalLabel').innerHTML = 'Falha ao cadastrar registro'
+        document.getElementById('mensagem_modal').innerHTML = 'Alguns campos obrigatórios não foram preenchidos'
+        document.getElementById('btn_color').innerHTML = 'Voltar e Ajustar'
+        
+    }
+}
+
 function cadastrarDespesa() {
     let ano = document.getElementById('ano')
     let mes = document.getElementById('mes')
@@ -58,12 +75,14 @@ function cadastrarDespesa() {
         valor.value
     )
     if (despesa.validarDados()) {
-        bd.gravarDados(despesa)
+        //bd.gravarDados(despesa)
+        configurarModal('sucess')
         // dialog de sucesso
-        $('#sucessoGravacao').modal('show')
+        $('#modalRegistraDespesa').modal('show')
     } else {
+        configurarModal('falha')
         // dialog de erro
-        $('#erroGravacao').modal('show')
+        $('#modalRegistraDespesa').modal('show')
     }
 
    
