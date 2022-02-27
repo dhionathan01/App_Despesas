@@ -37,6 +37,32 @@ class Bd {
         localStorage.setItem(id, JSON.stringify(dados)) // Setando dados no localstorange
         localStorage.setItem('id', id)
     }
+
+    recuperarTodosRegistros() {
+
+        //lista para armazenar todas as despesas
+        let listaDespesa = Array()
+
+        let id = localStorage.getItem('id')
+
+        // recuperando todas as despesas cadastradas em localStorange
+        for (let i = 1; i <= id; i++){
+            //recuperando despesa
+            let despesa = localStorage.getItem(i)
+            // convertendo a string para um objeto literal, para que possamos tratar seu dados
+            despesa = JSON.parse(despesa)
+
+            // Tratando itens que foram pulados/removidos
+            if (despesa === null) {
+                continue // Nesse contexto o continue ignora todo o restante do código no loop e passa para o próxima iteração
+                        // Desse modo o listaDespesa.push(despesa) é ignorado e passa pra próxima repetição do loop
+            }
+
+            listaDespesa.push(despesa)
+        }
+        console.log(listaDespesa)
+        return listaDespesa
+    }
 }
 
 let bd = new Bd()
@@ -83,7 +109,11 @@ function cadastrarDespesa() {
         configurarModal('falha')
         // dialog de erro
         $('#modalRegistraDespesa').modal('show')
-    }
+    }  
+}
 
-   
+function carregaListaDespesas() {
+    let listaDespesa = Array()
+    listaDespesa = bd.recuperarTodosRegistros()
+    console.log(listaDespesa)
 }
