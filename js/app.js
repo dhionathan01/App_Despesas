@@ -101,7 +101,7 @@ function cadastrarDespesa() {
         valor.value
     )
     if (despesa.validarDados()) {
-        //bd.gravarDados(despesa)
+        bd.gravarDados(despesa)
         configurarModal('sucess')
         // dialog de sucesso
         $('#modalRegistraDespesa').modal('show')
@@ -112,8 +112,50 @@ function cadastrarDespesa() {
     }  
 }
 
+function formatandoExibirTipo(itens_despesas) {
+    switch (itens_despesas.tipo) {
+        case '1': itens_despesas.tipo = 'Alimentação'
+            break
+        case '2': itens_despesas.tipo = 'Educação'
+            break
+        case '3': itens_despesas.tipo = 'Lazer'
+            break
+        case '4': itens_despesas.tipo = 'Saúde'
+            break
+        case '5': itens_despesas.tipo = 'Transporte'
+            break
+    }
+
+    return itens_despesas.tipo
+}
+
+
 function carregaListaDespesas() {
-    let listaDespesa = Array()
-    listaDespesa = bd.recuperarTodosRegistros()
-    console.log(listaDespesa)
+    let listaDespesas = Array()
+    listaDespesas = bd.recuperarTodosRegistros()
+    //debug : console.log(listaDespesas)
+    //selecionando o elemento tbody da tabela
+    var listaDespesasView = document.getElementById('listaDespesasView')
+
+/* 
+    <tr>
+      <td>17/04/2022</td>
+      <td>Lazer</td>
+      <td>Aniversário</td>
+      <td>12320.12</td>
+    </tr >
+  */
+    // percorrer o array despesas, listando cada despsa de forma dinâmica
+
+    listaDespesas.forEach(function (itens_despesas) {
+        //criando a linha os (tr)
+        let linha = listaDespesasView.insertRow()
+        // criando as colunas:
+        linha.insertCell(0).innerHTML = `${itens_despesas.dia}/${itens_despesas.mes}/${itens_despesas.ano}`
+        //ajustar o tipo
+        formatandoExibirTipo(itens_despesas)
+        linha.insertCell(1).innerHTML = itens_despesas.tipo
+        linha.insertCell(2).innerHTML = itens_despesas.descricao
+        linha.insertCell(3).innerHTML = itens_despesas.valor
+    })
 }
