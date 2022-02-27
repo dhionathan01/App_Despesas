@@ -60,9 +60,13 @@ class Bd {
 
             listaDespesa.push(despesa)
         }
-        console.log(listaDespesa)
+        //debug console.log(listaDespesa)
         return listaDespesa
     }
+    pesquisar(despesa) {
+        console.log(despesa)
+    }
+
 }
 
 let bd = new Bd()
@@ -147,15 +151,6 @@ function carregaListaDespesas() {
     //debug : console.log(listaDespesas)
     //selecionando o elemento tbody da tabela
     var listaDespesasView = document.getElementById('listaDespesasView')
-
-/* 
-    <tr>
-      <td>17/04/2022</td>
-      <td>Lazer</td>
-      <td>Aniversário</td>
-      <td>12320.12</td>
-    </tr >
-  */
     // percorrer o array despesas, listando cada despsa de forma dinâmica
 
     listaDespesas.forEach(function (itens_despesas) {
@@ -169,4 +164,16 @@ function carregaListaDespesas() {
         linha.insertCell(2).innerHTML = itens_despesas.descricao
         linha.insertCell(3).innerHTML = itens_despesas.valor
     })
+}
+
+function pesquisarDespesa() {
+    let ano = document.getElementById('ano').value
+    let mes = document.getElementById('mes').value
+    let dia = document.getElementById('dia').value
+    let tipo = document.getElementById('tipo').value
+    let descricao = document.getElementById('descricao').value
+    let valor = document.getElementById('valor').value
+
+    let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
+    bd.pesquisar(despesa)
 }
