@@ -84,6 +84,15 @@ function configurarModal(validacao) {
     }
 }
 
+function limparInputs() {
+    document.getElementById('ano').value = ''
+    document.getElementById('mes').value = ''
+    document.getElementById('dia').value = ''
+    document.getElementById('tipo').value = ''
+    document.getElementById('descricao').value = ''
+    document.getElementById('valor').value = ''
+}
+
 function cadastrarDespesa() {
     let ano = document.getElementById('ano')
     let mes = document.getElementById('mes')
@@ -105,6 +114,8 @@ function cadastrarDespesa() {
         configurarModal('sucess')
         // dialog de sucesso
         $('#modalRegistraDespesa').modal('show')
+        limparInputs()
+        
     } else {
         configurarModal('falha')
         // dialog de erro
