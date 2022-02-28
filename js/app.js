@@ -64,7 +64,39 @@ class Bd {
         return listaDespesa
     }
     pesquisar(despesa) {
+
+        let despesasFiltradas = Array()
+        despesasFiltradas = this.recuperarTodosRegistros()
+        console.log(despesasFiltradas)
         console.log(despesa)
+
+        // ano
+        // Se despesa ano não for vazio faça //  Utilizado para que caso não seja preenchido não aja o filtro e todos os itens sejam exibidos normalmente
+        console.log(despesasFiltradas)
+        if (despesa.ano != '') {
+            // precisamos sobrepor o array para que a próxima verificação seja feita com base na anterior
+            despesasFiltradas = despesasFiltradas.filter(item => item.ano == despesa.ano)
+        }
+        // mes
+
+        if (despesa.mes != '') {
+            despesasFiltradas = despesasFiltradas.filter(item => item.mes == despesa.mes)
+        }
+        // dia
+        if (despesa.dia != '') {
+            despesasFiltradas = despesasFiltradas.filter(item => item.dia == despesa.dia)
+        }
+        // tipo
+        if (despesa.tipo != '') {
+            despesasFiltradas = despesasFiltradas.filter(item => item.tipo == despesa.tipo)
+        }
+        // descricao
+        if (despesa.descricao != '') {
+            despesasFiltradas = despesasFiltradas.filter(item => item.descricao == despesa.descricao)
+        }
+        //
+
+        console.log(despesasFiltradas)
     }
 
 }
