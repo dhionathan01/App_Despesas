@@ -96,7 +96,7 @@ class Bd {
         }
         //
 
-        console.log(despesasFiltradas)
+        return despesasFiltradas
     }
 
 }
@@ -176,13 +176,20 @@ function formatandoExibirTipo(itens_despesas) {
     return itens_despesas.tipo
 }
 
+// Caso não for passado nada ana função (nenhum paramentro),ela criar um array por default (explicação Aula 290 , 6:50 )
 
-function carregaListaDespesas() {
-    let listaDespesas = Array()
-    listaDespesas = bd.recuperarTodosRegistros()
+
+function carregaListaDespesas(listaDespesas = Array()) {
+    console.log(listaDespesas)
+    // Caso o array por default esteja vazio, chama a função para exibir todos
+    if (listaDespesas.length == 0) {
+        listaDespesas = bd.recuperarTodosRegistros()
+    }
     //debug : console.log(listaDespesas)
     //selecionando o elemento tbody da tabela
     var listaDespesasView = document.getElementById('listaDespesasView')
+    // Zerando todos os valore para caso for chamada a função novamente,não adicionar itens duplicados
+    listaDespesasView.innerHTML = ''
     // percorrer o array despesas, listando cada despsa de forma dinâmica
 
     listaDespesas.forEach(function (itens_despesas) {
@@ -207,5 +214,8 @@ function pesquisarDespesa() {
     let valor = document.getElementById('valor').value
 
     let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
-    bd.pesquisar(despesa)
+
+    let listaDespesasFiltrada = bd.pesquisar(despesa)
+
+    carregaListaDespesas(listaDespesasFiltrada)
 }
