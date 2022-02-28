@@ -179,10 +179,10 @@ function formatandoExibirTipo(itens_despesas) {
 // Caso não for passado nada ana função (nenhum paramentro),ela criar um array por default (explicação Aula 290 , 6:50 )
 
 
-function carregaListaDespesas(listaDespesas = Array()) {
+function carregaListaDespesas(listaDespesas = Array(), filtro = false) {
     console.log(listaDespesas)
-    // Caso o array por default esteja vazio, chama a função para exibir todos
-    if (listaDespesas.length == 0) {
+    // Caso o array por default esteja vazio, chama a função para exibir todos, e não tenha valores escritos em filtro
+    if (listaDespesas.length == 0 && filtro == false) {
         listaDespesas = bd.recuperarTodosRegistros()
     }
     //debug : console.log(listaDespesas)
@@ -217,5 +217,5 @@ function pesquisarDespesa() {
 
     let listaDespesasFiltrada = bd.pesquisar(despesa)
 
-    carregaListaDespesas(listaDespesasFiltrada)
+    carregaListaDespesas(listaDespesasFiltrada, true)// O true é usado para identificar que um filtro foi passado
 }
