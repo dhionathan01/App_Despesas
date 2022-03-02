@@ -57,7 +57,8 @@ class Bd {
                 continue // Nesse contexto o continue ignora todo o restante do código no loop e passa para o próxima iteração
                         // Desse modo o listaDespesa.push(despesa) é ignorado e passa pra próxima repetição do loop
             }
-
+            //Criando um id para cada objeto listado
+            despesa.id = i
             listaDespesa.push(despesa)
         }
         //debug console.log(listaDespesa)
@@ -67,8 +68,8 @@ class Bd {
 
         let despesasFiltradas = Array()
         despesasFiltradas = this.recuperarTodosRegistros()
-        console.log(despesasFiltradas)
-        console.log(despesa)
+        //debug console.log(despesasFiltradas)
+        //debug console.log(despesa)
 
         // ano
         // Se despesa ano não for vazio faça //  Utilizado para que caso não seja preenchido não aja o filtro e todos os itens sejam exibidos normalmente
@@ -97,6 +98,10 @@ class Bd {
         //
 
         return despesasFiltradas
+    }
+
+    remover(id) {
+        localStorage.removeItem(id)
     }
 
 }
@@ -180,7 +185,7 @@ function formatandoExibirTipo(itens_despesas) {
 
 
 function carregaListaDespesas(listaDespesas = Array(), filtro = false) {
-    console.log(listaDespesas)
+    //debug console.log(listaDespesas)
     // Caso o array por default esteja vazio, chama a função para exibir todos, e não tenha valores escritos em filtro
     if (listaDespesas.length == 0 && filtro == false) {
         listaDespesas = bd.recuperarTodosRegistros()
@@ -202,7 +207,25 @@ function carregaListaDespesas(listaDespesas = Array(), filtro = false) {
         linha.insertCell(1).innerHTML = itens_despesas.tipo
         linha.insertCell(2).innerHTML = itens_despesas.descricao
         linha.insertCell(3).innerHTML = itens_despesas.valor
+
+        // criando botão de exclusão
+        let btn = document.createElement('button')
+        // adicionando estilos no botão
+        btn.className = 'btn btn-danger'
+        btn.innerHTML = '<i class="fas fa-times"></i>'
+        btn.id = `id_despesa_${itens_despesas.id}`
+        // adicionando ação no botão
+        btn.onclick = function () {
+            // remover despesa
+            // refatorando a string para que seja passado somente o valor do id
+            let id = this.id.replace('id_despesa_', '')
+            bd.remover(id)
+            window.location.reload()
+        }
+        linha.insertCell(4).append(btn)
+        console.log(itens_despesas)
     })
+    
 }
 
 function pesquisarDespesa() {
