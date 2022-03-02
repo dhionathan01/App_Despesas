@@ -61,19 +61,14 @@ class Bd {
             despesa.id = i
             listaDespesa.push(despesa)
         }
-        //debug console.log(listaDespesa)
         return listaDespesa
     }
     pesquisar(despesa) {
 
         let despesasFiltradas = Array()
         despesasFiltradas = this.recuperarTodosRegistros()
-        //debug console.log(despesasFiltradas)
-        //debug console.log(despesa)
-
         // ano
         // Se despesa ano não for vazio faça //  Utilizado para que caso não seja preenchido não aja o filtro e todos os itens sejam exibidos normalmente
-        console.log(despesasFiltradas)
         if (despesa.ano != '') {
             // precisamos sobrepor o array para que a próxima verificação seja feita com base na anterior
             despesasFiltradas = despesasFiltradas.filter(item => item.ano == despesa.ano)
@@ -185,12 +180,10 @@ function formatandoExibirTipo(itens_despesas) {
 
 
 function carregaListaDespesas(listaDespesas = Array(), filtro = false) {
-    //debug console.log(listaDespesas)
     // Caso o array por default esteja vazio, chama a função para exibir todos, e não tenha valores escritos em filtro
     if (listaDespesas.length == 0 && filtro == false) {
         listaDespesas = bd.recuperarTodosRegistros()
     }
-    //debug : console.log(listaDespesas)
     //selecionando o elemento tbody da tabela
     var listaDespesasView = document.getElementById('listaDespesasView')
     // Zerando todos os valore para caso for chamada a função novamente,não adicionar itens duplicados
