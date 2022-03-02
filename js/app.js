@@ -215,7 +215,7 @@ function carregaListaDespesas(listaDespesas = Array(), filtro = false) {
             bd.remover(id)
             chamarModal()
             // Atualizando a página
-            window.location.reload()
+            
             
         }
         linha.insertCell(4).append(btn)
