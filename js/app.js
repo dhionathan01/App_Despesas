@@ -220,7 +220,10 @@ function carregaListaDespesas(listaDespesas = Array(), filtro = false) {
             // refatorando a string para que seja passado somente o valor do id
             let id = this.id.replace('id_despesa_', '')
             bd.remover(id)
+            chamarModal()
+            // Atualizando a página
             window.location.reload()
+            
         }
         linha.insertCell(4).append(btn)
         console.log(itens_despesas)
@@ -241,4 +244,13 @@ function pesquisarDespesa() {
     let listaDespesasFiltrada = bd.pesquisar(despesa)
 
     carregaListaDespesas(listaDespesasFiltrada, true)// O true é usado para identificar que um filtro foi passado
+}
+
+function chamarModal() {
+        document.getElementById('header_color').className = 'modal-header text-success'
+        document.getElementById('btn_color').className = 'btn btn-success'
+        document.getElementById('exampleModalLabel').innerHTML = 'Registro Removido'
+        document.getElementById('mensagem_modal').innerHTML = 'A exclusão do registro foi feita com sucesso'
+        document.getElementById('btn_color').innerHTML = 'Continuar'
+    $('#modalConsulta').modal('show')
 }
